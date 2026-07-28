@@ -1,0 +1,170 @@
+---
+const covers = [
+  { src: '/music/16_Quitting Paris - Notbrian.webp', label: 'Quitting Paris - Notbrian', href: 'https://open.spotify.com/album/1FM8ZWahG3EylxCgbPuBbG?si=uV0gskcKQcSIDoWYuJ1etA' },
+  { src: '/music/15_Me Gustas Tu - NEVERHOME.webp', label: 'Me Gustas Tu - NEVERHOME', href: 'https://open.spotify.com/track/7HFVWpJbftMNx5UyxEONvD?si=96136d087070437c' },
+  { src: '/music/14_Want Me - Notbrian.webp', label: 'Want Me - Notbrian', href: 'https://open.spotify.com/track/2Oh6IQzCWV7N3h5YlhYBmc?si=e6c7caa1498946ed' },
+  { src: '/music/13_Roundabout - NEVERHOME.webp', label: 'Roundabout - NEVERHOME', href: 'https://open.spotify.com/track/1siaOawzHlExZTxltmC49B?si=635df8fad79b4236' },
+  { src: '/music/12_Back Then - Notbrian.webp', label: 'Back Then - Notbrian', href: 'https://open.spotify.com/track/2mFDVLEQpiuoeQZjoXaad6?si=9edf2a8140d44801' },
+  { src: '/music/11_Just Us - Notbrian.webp', label: 'Just Us - Notbrian', href: 'https://open.spotify.com/track/64X115W0nxCZ4vKqilJpwb?si=06114f6290f14028' },
+  { src: '/music/10_Balance It Out - NEVERHOME.webp', label: 'Balance It Out - NEVERHOME', href: 'https://open.spotify.com/track/5caeO1G8vr2PceQJZOvA4E?si=ca4afbe5acba447f' },
+  { src: '/music/9_Se Deus Quiser - Notbrian.webp', label: 'Se Deus Quiser - Notbrian', href: 'https://open.spotify.com/album/3CtpjfMqUKlrVBnTZRzzp1?si=kx5OYoZsSdyyRBYh3KQHNA' },
+  { src: "/music/8_Don't Wake Me Up - Notbrian.webp", label: "Don't Wake Me Up - Notbrian", href: 'https://open.spotify.com/track/1xyzp9XCmQNtEyAbOSZRbq?si=b3dd179ee0664b5e' },
+  { src: "/music/7_Big Baby - Hailey's Comet.webp", label: "Big Baby - Hailey's Comet", href: 'https://open.spotify.com/track/2Je6FthFudF5NMSSq3aGQa?si=69dca2e2a5dd4334' },
+  { src: '/music/6_Amor Fati - NEVERHOME.webp', label: 'Amor Fati - NEVERHOME', href: 'https://open.spotify.com/track/3PCrU840jBxJ3s855YMnTz?si=517d18bb23604835' },
+  { src: '/music/5_Dune Dance - NEVERHOME.webp', label: 'Dune Dance - NEVERHOME', href: 'https://open.spotify.com/track/5zGx3tcqpQi66HzCBRIlSR?si=78730606a01e4ad5' },
+  { src: '/music/4_Better Love - Notbrian.webp', label: 'Better Love - Notbrian', href: 'https://open.spotify.com/track/0hSnO3gutoAWNXt1bApplz?si=c22402c3f0ad46e2' },
+  { src: '/music/3_Girl Next Door - Notbrian.webp', label: 'Girl Next Door - Notbrian', href: 'https://open.spotify.com/track/6UI7E0AJB5VX4r8EuSkCUB?si=b5228ac90e4f42b8' },
+  { src: '/music/2_NEVERHOME - NEVERHOME.webp', label: 'NEVERHOME - NEVERHOME', href: 'https://open.spotify.com/album/7cWEHLYMCKJ7F6a87NhqLG?si=LkhvGfAxQFWhisFNOUcTcA' },
+];
+---
+
+<section class="section music" id="music">
+  <div class="shell">
+    <div class="eyebrow scroll-heading" data-scroll-heading>
+      <span class="label label--ink scroll-heading__label" data-scroll-heading-label>Music</span>
+      <span class="rule"></span>
+    </div>
+
+    <ul class="music__gallery" aria-label="Music cover gallery">
+      {
+        covers.map((cover, index) => (
+          <li class="music__item rise" data-delay={String((index % 4) + 1)}>
+            <a
+              class="music__link"
+              href={cover.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="music__cover"
+                src={cover.src}
+                alt={`${cover.label} cover artwork`}
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="music__caption">{cover.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .music {
+    min-height: calc(100svh - 4rem - clamp(5.5rem, 5.6vw, 6.6rem));
+    padding-top: clamp(1.25rem, 2vw, 2rem);
+    padding-bottom: 0;
+  }
+
+  .music > .shell > .eyebrow {
+    margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+  }
+
+  .music__gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    list-style: none;
+  }
+
+  .music__item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--color-paper);
+  }
+
+  .music__item:nth-last-child(-n + 3)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 35%,
+      var(--color-paper) 100%
+    );
+    pointer-events: none;
+  }
+
+  .music__link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .music__link:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid var(--color-ink);
+    outline-offset: -2px;
+  }
+
+  .music__cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .music__caption {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    padding: clamp(0.75rem, 2vw, 1.5rem);
+    background: rgb(14 15 18 / 0.64);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 1vw, 0.95rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(0.25rem);
+    transition:
+      opacity 0.3s ease,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (hover: hover) {
+    .music__item:hover .music__cover {
+      transform: scale(1.025);
+    }
+
+    .music__item:hover .music__caption {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .music__link:focus-visible .music__caption {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 760px) {
+    .music__gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .music__gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music__cover {
+      transition: none;
+    }
+    .music__caption {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Profile from '../components/Profile.astro';
+import Work from '../components/Work.astro';
+import Practice from '../components/Practice.astro';
+import Music from '../components/Music.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<Base>
+  <Nav />
+  <main>
+    <Hero />
+    <Profile />
+    <Work />
+    <Practice />
+    <Music />
+    <Contact />
+  </main>
+</Base>
+
+<script>
+  // Toggle a scrolled state so the nav grows a hairline once you leave the hero.
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        document.body.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

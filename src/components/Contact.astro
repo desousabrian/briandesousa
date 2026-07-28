@@ -1,0 +1,89 @@
+---
+const socials = [
+  { label: 'Email', v: 'brian.desousa@outlook.com', href: 'mailto:brian.desousa@outlook.com' },
+  { label: 'LinkedIn', v: 'in/desousabrian', href: 'https://www.linkedin.com/in/desousabrian/' },
+  { label: 'Facebook', v: 'facebook.com/desousabrian', href: 'https://www.facebook.com/desousabrian/' },
+];
+---
+
+<section class="section contact" id="contact">
+  <footer class="colophon">
+    <div class="shell contact__below">
+      <div class="contact__eyebrow">
+        <span class="label label--ink">Contact</span>
+        <span class="label data contact__avail">Response in 24 hrs</span>
+      </div>
+      <ul class="contact__socials">
+        {
+          socials.map((s, i) => (
+            <li class="contact__social rise" data-delay={String((i % 4) + 1)}>
+              <span class="label contact__social-lbl">{s.label}</span>
+              <a class="link contact__social-link data" href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel={s.href.startsWith('http') ? 'noopener' : undefined}>
+                {s.v}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="contact__copy label">© 2026 Brian DeSousa</p>
+    </div>
+  </footer>
+</section>
+
+<style>
+  .contact {
+    padding-bottom: 0;
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .colophon {
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .contact__below {
+    padding-top: clamp(1.5rem, 3vw, 2.25rem);
+    padding-bottom: clamp(3rem, 7vw, 5.5rem);
+  }
+  .contact__eyebrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  }
+  .contact__avail {
+    color: var(--color-mute);
+  }
+
+  .contact__socials {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .contact__social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .contact__social-lbl {
+    color: var(--color-mute);
+  }
+  .contact__social-link {
+    color: var(--color-ink);
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    width: fit-content;
+  }
+
+  .contact__copy {
+    text-align: center;
+    color: var(--color-mute);
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+
+  @media (max-width: 760px) {
+    .contact__socials {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem 1rem;
+    }
+  }
+</style>

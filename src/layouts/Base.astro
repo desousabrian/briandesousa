@@ -1,0 +1,145 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'brian desousa',
+  description = 'Brian DeSousa is a data analyst and creative developer building measured, expressive interfaces where data is the material.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/avi.ico" type="image/x-icon" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f5f3" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Enable enhanced (hidden-then-reveal) states only when JS is available. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a href="#work" class="skip">Skip to work</a>
+    <slot />
+
+    <style>
+      .skip {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 100;
+        transform: translateY(-160%);
+        background: var(--color-ink);
+        color: var(--color-paper);
+        padding: 0.6rem 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        transition: transform 0.25s ease;
+      }
+      .skip:focus {
+        transform: none;
+      }
+    </style>
+
+    <script>
+      // ------- Scroll-reveal orchestration (tiny, GPU-cheap) -------
+      const prefersReduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      const revealTargets = document.querySelectorAll(
+        '.rise, .eyebrow, [data-clip]'
+      );
+
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        revealTargets.forEach((el) => el.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0.12 }
+        );
+        revealTargets.forEach((el) => io.observe(el));
+      }
+
+      // Section labels travel from the center of their rule to the left edge
+      // between the previous section's snap point and their own.
+      const scrollHeadings = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-scroll-heading]')
+      );
+      let scrollHeadingTicking = false;
+
+      function headingLanding(section: HTMLElement) {
+        const scrollMargin = Number.parseFloat(
+          getComputedStyle(section).scrollMarginTop
+        ) || 0;
+        return Math.max(0, section.offsetTop - scrollMargin);
+      }
+
+      function updateScrollHeadings() {
+        scrollHeadingTicking = false;
+        const landings = scrollHeadings.map((heading) => {
+          const section = heading.closest<HTMLElement>('.section');
+          return section ? headingLanding(section) : 0;
+        });
+
+        scrollHeadings.forEach((heading, index) => {
+          const label = heading.querySelector<HTMLElement>(
+            '[data-scroll-heading-label]'
+          );
+          if (!label) return;
+
+          const start = index === 0 ? 0 : landings[index - 1];
+          const end = Math.max(start + 1, landings[index]);
+          const progress = Math.min(
+            1,
+            Math.max(0, (window.scrollY - start) / (end - start))
+          );
+          const centeredOffset = Math.max(
+            0,
+            (heading.clientWidth - label.offsetWidth) / 2
+          );
+
+          label.style.transform = `translate3d(${centeredOffset * (1 - progress)}px, 0, 0)`;
+        });
+      }
+
+      function requestScrollHeadingUpdate() {
+        if (scrollHeadingTicking) return;
+        scrollHeadingTicking = true;
+        requestAnimationFrame(updateScrollHeadings);
+      }
+
+      if (!prefersReduced) {
+        window.addEventListener('scroll', requestScrollHeadingUpdate, {
+          passive: true,
+        });
+        window.addEventListener('resize', requestScrollHeadingUpdate);
+        requestScrollHeadingUpdate();
+      }
+    </script>
+  </body>
+</html>

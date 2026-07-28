@@ -1,0 +1,204 @@
+---
+const projects = [
+  {
+    title: 'Agentic AI Group',
+    description: 'In Q1 2026, I began combining agentic AI and Power Automate to bring out a new level and depth of insights into the vast marketing performance datasets we had been working with in DOMO; these efforts ultimately culminated in an AI presentation I delivered at our annual GPX summit, where we spoke on agentic workflows to the broader organization.',
+    tags: ['Copilot', 'Power Automate', 'DOMO', 'Claude'],
+    logo: '/uhc_small.png',
+    logoAlt: 'UnitedHealthcare',
+  },
+  {
+    title: 'Trakdb',
+    description: 'An open-source platform for music managers, labels, and publishers — where they can administer their catalogue & rights, prepare / share tracks, organize payments, and more. I built Trakdb as a solution for some of the obstacles I faced myself as a producer & band member, and hope to get it into the hands of others in a similar position.',
+    tags: ['Python', 'JavaScript', 'Github', 'HTML', 'CSS'],
+    logo: '/trakdb_small.png',
+    logoAlt: 'Trakdb',
+  },
+  {
+    title: 'Executive Insights Reporting',
+    description: 'At Marriott I was given the task of building various views of business performance results - one of the longer term projects this culminated in was a series of dynamic dashboards in Adobe Analytics and Power BI that provided reporting for a number of stakeholders; using the formula/filtering capabilities to their utmost in each platform, we were able to set a flexible foundation for a range of business needs.',
+    tags: ['Adobe Analytics', 'Power BI', 'Excel'],
+    logo: '/marriott_small.png',
+    logoAlt: 'Marriott International',
+  },
+  {
+    title: 'Phoenix Data Migration',
+    description: 'I took on the project of migrating our marketing data into DOMO in 2022, and constructing a campaign encyclopedia that would serve as the foundation for future reporting and optimizations. We onboarded dozens of partners across channels like paid search, display, affiliate, and social — all connected with back-end conversion numbers that allowed for a vivid picture of performance and constant insights.',
+    tags: ['DOMO', 'Excel', 'SA360', 'Facebook Ads', 'StackAdapt'],
+    logo: '/uhg_small.png',
+    logoAlt: 'UnitedHealth Group',
+  },
+];
+---
+
+<section class="section projects" id="projects">
+  <div class="shell">
+    <div class="eyebrow scroll-heading" data-scroll-heading>
+      <span class="label label--ink scroll-heading__label" data-scroll-heading-label>Projects</span>
+      <span class="rule"></span>
+    </div>
+
+    <div class="projects__grid">
+      {projects.map((p, i) => (
+        <article class="projects__card rise" data-delay={String((i % 4) + 1)}>
+          <div class="projects__head">
+            <h3 class="projects__title">{p.title}</h3>
+          </div>
+          <p class="projects__desc">{p.description}</p>
+          <div class="projects__footer">
+            <ul class="projects__tags">
+              {p.tags.map((t) => (
+                <li class="data">{t}</li>
+              ))}
+            </ul>
+            {p.logo && (
+              <img
+                class:list={[
+                  'projects__logo',
+                  p.title === 'Trakdb' && 'projects__logo--trakdb',
+                  p.title === 'Executive Insights Reporting' &&
+                    'projects__logo--marriott',
+                ]}
+                src={p.logo}
+                alt={p.logoAlt}
+              />
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    min-height: calc(100svh - 4rem - clamp(5.5rem, 5.6vw, 6.6rem));
+    padding-top: clamp(1.25rem, 2vw, 2rem);
+    padding-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1rem, 2vw, 1.5rem);
+    padding-top: clamp(0.75rem, 1.25vw, 1rem);
+  }
+
+  .projects__card {
+    border: 1px solid var(--color-hair);
+    border-radius: 6px;
+    padding: clamp(1rem, 1.6vw, 1.5rem);
+    translate: 0 0;
+    scale: 1;
+    transition:
+      border-color 0.22s ease,
+      box-shadow 0.22s ease,
+      translate 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+      scale 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .projects__card:hover {
+    border-color: var(--color-ink);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.07);
+    translate: 0 -3px;
+    scale: 1.008;
+  }
+
+  .projects__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .projects__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 112%;
+    font-variation-settings: 'wght' 700, 'wdth' 112;
+    font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+  }
+
+  .projects__card:hover .projects__title {
+    color: var(--color-signal);
+  }
+
+  .projects__desc {
+    font-size: clamp(0.8rem, 0.9vw, 0.875rem);
+    color: var(--color-ink-2);
+    line-height: 1.45;
+    max-width: 56ch;
+  }
+
+  .projects__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .projects__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+  .projects__tags li {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    border: 1px solid var(--color-hair);
+    border-radius: 999px;
+    padding: 0.2em 0.65em;
+    color: var(--color-mute);
+  }
+
+  .projects__logo {
+    display: block;
+    width: clamp(4.25rem, 6.5vw, 5.25rem);
+    height: auto;
+    flex-shrink: 0;
+    opacity: 0.82;
+  }
+
+  .projects__logo--trakdb {
+    width: clamp(1.65rem, 2.4vw, 2rem);
+  }
+
+  .projects__logo--marriott {
+    width: clamp(2.1rem, 3vw, 2.5rem);
+  }
+
+  .projects__logo--trakdb,
+  .projects__logo--marriott {
+    margin-right: clamp(0.5rem, 0.8vw, 0.75rem);
+  }
+
+  @media (min-width: 821px) and (max-height: 899px) {
+    .projects {
+      padding-bottom: 0;
+    }
+    .projects__grid {
+      row-gap: 1.15rem;
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .projects__card,
+    .projects__card:hover {
+      translate: none;
+      scale: 1;
+    }
+  }
+</style>

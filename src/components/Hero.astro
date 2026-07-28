@@ -1,0 +1,660 @@
+---
+const words = ['Data guy.', 'Musician.', 'Developer.', 'Strategist.'];
+---
+
+<section class="hero" id="top">
+  <canvas class="hero__plot" aria-hidden="true"></canvas>
+
+  <div class="shell hero__grid">
+    <div class="hero__top">
+      <p class="label hero__coords data" aria-hidden="true">
+        x&nbsp;<span data-readout="x">000.0</span> &nbsp; y&nbsp;<span
+          data-readout="y">000.0</span>
+      </p>
+    </div>
+
+    <h1 class="hero__head display">
+      {
+        words.map((w, i) => (
+          <span class="clip" data-hero-line style={`--i:${i}`}>
+            <span>{w}</span>
+          </span>
+        ))
+      }
+    </h1>
+
+    <div class="hero__foot">
+      <p class="hero__lede" data-hero="2">
+        This website is a collection of my projects, experience, and everything
+        in between.
+      </p>
+
+    </div>
+
+    <!-- Scroll cue is pinned to its own spot so it stays put when the
+         content above it shifts up. -->
+    <a href="#about" class="hero__scroll label" data-hero="4">
+      <span>Scroll</span>
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    /* under a full viewport so About sits higher (its top padding keeps any
+       content below the fold until you scroll) */
+    min-height: calc(100svh - 4rem);
+    display: flex;
+    align-items: stretch;
+    padding-top: clamp(5.5rem, 5.6vw, 6.6rem);
+    overflow: hidden;
+  }
+
+  .hero__plot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .hero__plot.is-ready {
+    opacity: 1;
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* smaller top padding pulls the eyebrow/coordinates row up toward the nav */
+    padding-top: clamp(0.2rem, 0.9vh, 0.6rem);
+    padding-bottom: clamp(0.75rem, 2.4vh, 1.75rem);
+  }
+
+  .hero__top {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  /* Full-bleed fill behind the eyebrow / coordinates row (and everything above
+     it) so no scatter dots sit at that row's height. Clipped to the hero. */
+  .hero__top::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    bottom: 0;
+    height: 200vh;
+    background: var(--color-paper);
+  }
+
+  .hero__coords {
+    font-size: 0.66rem;
+    color: var(--color-mute);
+  }
+
+  .hero__head {
+    font-size: clamp(1.4rem, 4.5vw, 3.6rem);
+    line-height: 1.14;
+    /* top margin reduced by the amount the foot band drops, so the headline
+       holds its position while the lede/roles move down */
+    margin-top: calc(clamp(0.75rem, 2.4vh, 1.6rem) - 1.75rem);
+    margin-bottom: clamp(0.75rem, 2.4vh, 1.6rem);
+    --c-red: #e5352b;
+    --c-yellow: #e0a500;
+    --c-blue: #2438ff;
+    --c-green: #17a34a;
+  }
+  /* each identity sits on its own line */
+  .hero__head .clip {
+    display: block;
+  }
+
+  /* Base colours: red / yellow / blue / green top-to-bottom. */
+  .hero__head .clip:nth-child(1) > span {
+    color: var(--c-red);
+  }
+  .hero__head .clip:nth-child(2) > span {
+    color: var(--c-yellow);
+  }
+  .hero__head .clip:nth-child(3) > span {
+    color: var(--c-blue);
+  }
+  .hero__head .clip:nth-child(4) > span {
+    color: var(--c-green);
+  }
+
+  /* Every second each line advances one colour: red→yellow→blue→green→red.
+     A 4s loop that holds each colour for a quarter (snaps, no blend), with a
+     one-second negative delay per line so the whole set shifts in step. */
+  .hero__head .clip > span {
+    animation: headColourCycle 4s linear infinite;
+  }
+  .hero__head .clip:nth-child(1) > span {
+    animation-delay: 0s;
+  }
+  .hero__head .clip:nth-child(2) > span {
+    animation-delay: -3s;
+  }
+  .hero__head .clip:nth-child(3) > span {
+    animation-delay: -2s;
+  }
+  .hero__head .clip:nth-child(4) > span {
+    animation-delay: -1s;
+  }
+
+  @keyframes headColourCycle {
+    0%,
+    24.99% {
+      color: var(--c-red);
+    }
+    25%,
+    49.99% {
+      color: var(--c-green);
+    }
+    50%,
+    74.99% {
+      color: var(--c-blue);
+    }
+    75%,
+    100% {
+      color: var(--c-yellow);
+    }
+  }
+
+  .hero__foot {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    /* lede + roles align to their top lines */
+    align-items: start;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    /* raised a bit so the block sits closer to the nav; the scroll cue below
+       is pinned separately and does not move with this. */
+    margin-bottom: calc(clamp(4rem, 20vh, 10rem) - 3.75rem);
+    position: relative;
+    z-index: 0;
+    padding-block: 1rem;
+    /* how far the lede + roles drop toward the scroll cue (kept in sync) */
+    --foot-drop: 1.75rem;
+  }
+  /* Full-bleed white fill: from the top of this band down to the About
+     section, covering any scatter dots to the left, right and below the
+     subtext. Sits above the canvas but behind the text. Clipped to the hero
+     by its overflow:hidden. */
+  .hero__foot::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    /* start the fill just above the (dropped) text so more scatter shows above */
+    top: calc(var(--foot-drop) - 0.5rem);
+    height: 200vh;
+    background: var(--color-paper);
+  }
+
+  .hero__lede {
+    max-width: 34ch;
+    font-size: clamp(1rem, 1.2vw, 1.18rem);
+    line-height: 1.45;
+    color: var(--color-ink-2);
+    /* nudged down toward the scroll cue's level */
+    position: relative;
+    top: var(--foot-drop);
+    justify-self: end;
+    text-align: right;
+  }
+
+  .hero__roles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    list-style: none;
+    text-align: right;
+    justify-self: end;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-ink);
+    /* dropped in sync with the lede so their top lines stay level */
+    position: relative;
+    top: var(--foot-drop);
+  }
+  .hero__roles .data {
+    color: var(--color-mute);
+    margin-right: 0.3rem;
+  }
+
+  .hero__scroll {
+    /* pinned to its original resting spot, independent of the band above */
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: fit-content;
+    bottom: clamp(0.4rem, 1vh, 0.75rem);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6rem;
+  }
+  .hero__scroll-line {
+    width: 1px;
+    height: 2.5rem;
+    background: linear-gradient(
+      to bottom,
+      var(--color-ink) 0%,
+      transparent 100%
+    );
+    position: relative;
+    overflow: hidden;
+  }
+  .hero__scroll-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-signal);
+    animation: drip 2.2s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  }
+  @keyframes drip {
+    0% {
+      transform: translateY(-100%);
+    }
+    60%,
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  /* ---- hover affordances on the bottom band ---- */
+  @media (hover: hover) {
+    .hero__lede,
+    .hero__scroll > span:first-child,
+    .hero__scroll-line,
+    .hero__roles li,
+    .hero__roles li .data {
+      transition:
+        color 0.35s ease,
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* lede: text deepens and a cobalt tick draws in on the right */
+    .hero__lede {
+      cursor: default;
+    }
+    .hero__lede:hover {
+      color: var(--color-ink);
+    }
+    .hero__lede::before {
+      content: '';
+      position: absolute;
+      right: -0.85rem;
+      top: 0.15em;
+      bottom: 0.15em;
+      width: 2px;
+      background: var(--color-signal);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero__lede:hover::before {
+      transform: scaleY(1);
+    }
+
+    /* scroll cue: the line extends and the label darkens */
+    .hero__scroll:hover .hero__scroll-line {
+      height: 3.5rem;
+    }
+    .hero__scroll:hover > span:first-child {
+      color: var(--color-ink);
+    }
+
+    /* roles: each line nudges in and its prefix goes cobalt */
+    .hero__roles li {
+      cursor: default;
+    }
+    .hero__roles li:hover {
+      color: var(--color-signal-ink);
+      transform: translateX(-5px);
+    }
+    .hero__roles li:hover .data {
+      color: var(--color-signal);
+    }
+  }
+
+  /* ---- entrance states (gated behind .js for graceful degradation) ---- */
+  [data-hero] {
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  :global(.js) [data-hero] {
+    opacity: 0;
+    transform: translateY(0.8rem);
+  }
+  .hero.is-in [data-hero='1'] {
+    transition-delay: 0.1s;
+  }
+  .hero.is-in [data-hero='2'] {
+    transition-delay: 0.85s;
+  }
+  .hero.is-in [data-hero='3'] {
+    transition-delay: 0.95s;
+  }
+  .hero.is-in [data-hero='4'] {
+    transition-delay: 1.1s;
+  }
+  .hero.is-in [data-hero] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__head .clip > span {
+    transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(0.18s + var(--i) * 0.11s);
+  }
+
+  @media (max-width: 720px) {
+    .hero__foot {
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 1.5rem;
+    }
+    .hero__roles {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      text-align: left;
+      justify-self: start;
+    }
+    /* the vertical scroll cue is decorative — drop it on touch layouts */
+    .hero__scroll {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-hero],
+    .hero__head .clip > span {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    /* hold the static red/yellow/blue/green colours, no cycling */
+    .hero__head .clip > span {
+      animation: none !important;
+    }
+    .hero__scroll-line::after {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // ============================================================
+  // Signature: generative scatter-plot field.
+  // Points ease into a distribution on load, drift with the
+  // cursor, and gently flow on their own between interactions.
+  // Reduced-motion stays static; rendering pauses off-screen.
+  // ============================================================
+  type Pt = {
+    tx: number;
+    ty: number; // target (0..1 normalized)
+    x: number;
+    y: number; // current (px)
+    r: number;
+    depth: number;
+    accent: boolean;
+    seed: number;
+  };
+
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const canvas = document.querySelector<HTMLCanvasElement>('.hero__plot');
+  if (hero && canvas) {
+    const ctx = canvas.getContext('2d');
+    const reduce =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      new URLSearchParams(location.search).has('static');
+
+    const INK = '#0e0f12';
+    const SIGNAL = '#ff0000';
+
+    let W = 0,
+      H = 0,
+      dpr = 1;
+    let pts: Pt[] = [];
+    let mx = 0.5,
+      my = 0.5; // normalized pointer
+    let tmx = 0.5,
+      tmy = 0.5;
+    let start = 0;
+    let raf = 0;
+    let visible = true;
+    let running = false;
+    let lastActive = 0;
+    let lastPointerMove = 0;
+    const readoutX = document.querySelector('[data-readout="x"]');
+    const readoutY = document.querySelector('[data-readout="y"]');
+
+    function isSmall() {
+      return window.innerWidth < 700 || window.matchMedia('(pointer: coarse)').matches;
+    }
+
+    function build() {
+      const count = isSmall() ? 34 : 92;
+      pts = [];
+      for (let i = 0; i < count; i++) {
+        const t = i / (count - 1);
+        // A distribution with a gentle upward regression + scatter.
+        const jitterX = (Math.sin(i * 12.9898) * 43758.5453) % 1;
+        const jitterY = (Math.sin(i * 78.233) * 12543.132) % 1;
+        const jx = Math.abs(jitterX);
+        const jy = Math.abs(jitterY);
+        const tx = 0.06 + t * 0.9 + (jx - 0.5) * 0.06;
+        const trend = 0.82 - t * 0.62; // top-left high, descending
+        const ty = trend + (jy - 0.5) * 0.34;
+        const accent = jx > 0.9 || i === count - 3;
+        pts.push({
+          tx,
+          ty: Math.min(0.94, Math.max(0.08, ty)),
+          x: 0,
+          y: 0,
+          r: accent ? 3.2 : 1.45 + jy * 1.35,
+          depth: 0.3 + jx * 0.9,
+          accent,
+          seed: i * 1.37,
+        });
+      }
+    }
+
+    function resize() {
+      const rect = hero!.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width;
+      H = rect.height;
+      canvas!.width = Math.round(W * dpr);
+      canvas!.height = Math.round(H * dpr);
+      canvas!.style.width = W + 'px';
+      canvas!.style.height = H + 'px';
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+      // seed current positions from a collapsed center for the intro
+      for (const p of pts) {
+        p.x = W * (0.5 + (p.tx - 0.5) * 0.2);
+        p.y = H * (0.5 + (p.ty - 0.5) * 0.2);
+      }
+    }
+
+    function pos(p: Pt, parX: number, parY: number) {
+      const px = p.tx * W + parX * p.depth * 34;
+      const py = p.ty * H + parY * p.depth * 34;
+      return { px, py };
+    }
+
+    function render(now: number) {
+      if (!ctx) return;
+      const elapsed = reduce ? 99999 : (now - start) / 1000;
+
+      // When the pointer settles, blend into a slow layered orbit. Fresh
+      // pointer movement immediately hands control back to the visitor.
+      const autoProgress = reduce
+        ? 0
+        : Math.min(1, Math.max(0, (now - lastPointerMove - 650) / 1800));
+      const autoMix =
+        autoProgress * autoProgress * (3 - 2 * autoProgress);
+      const autoX =
+        0.5 +
+        Math.sin(now / 2400) * 0.19 +
+        Math.sin(now / 4400 + 1.4) * 0.065;
+      const autoY =
+        0.5 +
+        Math.cos(now / 2750 + 0.7) * 0.16 +
+        Math.sin(now / 5300) * 0.055;
+      const autonomousStrength = 0.5 + autoMix * 0.5;
+      const pointerStrength = (1 - autoMix) * 1.45;
+      const targetX =
+        0.5 +
+        (autoX - 0.5) * autonomousStrength +
+        (tmx - 0.5) * pointerStrength;
+      const targetY =
+        0.5 +
+        (autoY - 0.5) * autonomousStrength +
+        (tmy - 0.5) * pointerStrength;
+
+      mx += (targetX - mx) * 0.085;
+      my += (targetY - my) * 0.085;
+      const parX = (mx - 0.5) * 2;
+      const parY = (my - 0.5) * 2;
+
+      ctx.clearRect(0, 0, W, H);
+
+      const settled = elapsed > 2.2;
+      const pointerStill =
+        Math.abs(targetX - mx) < 0.01 && Math.abs(targetY - my) < 0.01;
+      const resting = reduce || (settled && pointerStill && autoMix === 0);
+
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        const { px, py } = pos(p, parX, parY);
+        // staggered intro settle
+        const local = Math.min(1, Math.max(0, (elapsed - p.seed * 0.02) / 1.2));
+        const le = 1 - Math.pow(1 - local, 3);
+        const drift = resting
+          ? 0
+          : Math.sin(now / 1050 + p.seed) * (2.2 + autoMix * 2.8) * p.depth;
+        const cx = p.x + (px - p.x) * (reduce ? 1 : le * 0.14 + 0.02);
+        const cy = p.y + (py - p.y) * (reduce ? 1 : le * 0.14 + 0.02);
+        p.x = reduce ? px : cx;
+        p.y = reduce ? py : cy;
+
+        const alpha = le;
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y + drift, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.accent ? SIGNAL : INK;
+        ctx.fill();
+
+        if (p.accent) {
+          ctx.globalAlpha = alpha * 0.5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y + drift, p.r + 3, 0, Math.PI * 2);
+          ctx.strokeStyle = SIGNAL;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      // live readout
+      if (readoutX && readoutY) {
+        const displayX = Math.min(1, Math.max(0, targetX));
+        const displayY = Math.min(1, Math.max(0, targetY));
+        readoutX.textContent = (displayX * 640).toFixed(1).padStart(5, '0');
+        readoutY.textContent = ((1 - displayY) * 480).toFixed(1).padStart(5, '0');
+      }
+
+      if (!reduce && visible) {
+        raf = requestAnimationFrame(render);
+      } else {
+        running = false;
+      }
+    }
+
+    function requestTick() {
+      if (reduce) {
+        render(performance.now());
+        return;
+      }
+      if (!running && visible) {
+        running = true;
+        raf = requestAnimationFrame(render);
+      }
+    }
+
+    function loop() {
+      cancelAnimationFrame(raf);
+      running = false;
+      start = performance.now();
+      lastActive = start;
+      lastPointerMove = start;
+      requestTick();
+    }
+
+    window.addEventListener(
+      'pointermove',
+      (e) => {
+        tmx = e.clientX / window.innerWidth;
+        tmy = e.clientY / window.innerHeight;
+        lastActive = performance.now();
+        lastPointerMove = lastActive;
+        requestTick();
+      },
+      { passive: true }
+    );
+
+    let rt: number;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = window.setTimeout(() => {
+        resize();
+        lastActive = performance.now();
+        requestTick();
+      }, 150);
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) {
+          lastActive = performance.now();
+          requestTick();
+        } else {
+          running = false;
+          cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0 }
+    );
+    io.observe(hero);
+
+    // boot
+    resize();
+    canvas.classList.add('is-ready');
+    requestAnimationFrame(() => hero.classList.add('is-in'));
+    loop();
+  }
+
+</script>

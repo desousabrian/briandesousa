@@ -1,0 +1,649 @@
+---
+const projects = [
+  {
+    id: '001',
+    title: 'UnitedHealth Group',
+    client: 'Business Analyst · Manager',
+    kind: ['DOMO', 'Copilot', 'Power Automate', 'Claude', 'Adobe Analytics', 'Snowflake', 'ServiceNow', 'Tableau', 'Databricks'],
+    year: 'Present',
+    blurb:
+      "I led AI initiatives, including building & presenting agents to C-suite executives and the broader organization at our GPX summit. I also developed cross-platform media reporting for all of Government Programs Marketing, constructing complex full-funnel datasets and performance dashboards to enable optimization of campaigns across channels; this entailed administering the DOMO instance, managing weekly meetings with stakeholders to review ongoing migration & transformation projects, and integrating a range of platforms/partners/sources based on business needs.",
+    dates: '1/2023–Present',
+    metric: '+23% ROAS',
+    image: '/unitedhealthgroup.png',
+  },
+  {
+    id: '002',
+    title: 'UnitedHealthcare',
+    client: 'Digital Operations Specialist',
+    kind: ['DOMO', 'Power BI', 'Adobe Analytics', 'Excel', 'Workfront', 'Tableau', 'Search Ads 360', 'Facebook Ads'],
+    year: '2023',
+    dates: '9/2021–1/2023',
+    blurb:
+      "I stood up and maintained digital media reporting, connecting datasets across platforms such as Google/Facebook/Tableau within DOMO - and enabling one-to-one performance tracking via the construction of a campaign encyclopedia. I also built advanced analytics views of performance through Z-score & regression modeling, and regularly took on a variety of ad-hoc analyses and report building for insights across channels & lines of business.",
+    metric: '40k tps · 60fps',
+    image: '/unitedhealthcare.png',
+  },
+  {
+    id: '003',
+    title: 'Marriott International',
+    client: 'Customer Insights Coordinator',
+    kind: ['Adobe Analytics', 'SA360', 'Excel', 'Facebook Ads', 'Tableau', 'Qualtrics'],
+    year: '2021',
+    blurb:
+      "I supported online business and marketing operations by building scheduled reports & dashboards, conducting ad-hoc analyses of campaign/product performance and user behavior, and formulating product requirements for Adobe Analytics tracking as well as coordinating + debugging web/mobile implementations.",
+    dates: '1/2021–9/2021',
+    metric: '120 yrs · 1 story',
+    image: '/marriottinternational.png',
+    imgScale: 1.5,
+  },
+];
+---
+
+<section class="section work" id="work">
+  <div class="shell">
+    <div class="eyebrow scroll-heading" data-scroll-heading>
+      <span class="label label--ink scroll-heading__label" data-scroll-heading-label>Experience</span>
+      <span class="rule"></span>
+    </div>
+
+    <div class="work__layout">
+      <div class="work__left">
+        <ol class="work__list" role="list">
+          {
+            projects.map((p, i) => (
+              <li class="work__row rise" data-delay={String((i % 4) + 1)}>
+                <div
+                  class="work__trigger"
+                  data-project={p.id}
+                >
+                  <span class="work__title display">{p.title}</span>
+                  <span class="work__client">{p.client}</span>
+                </div>
+                <div class="work__mobile">
+                  <div class="work__thumb">
+                    <img
+                      class:list={[
+                        'work__thumb-img',
+                        p.imgScale && 'work__thumb-img--scaled',
+                      ]}
+                      src={p.image}
+                      alt={p.title}
+                      loading="lazy"
+                      style={p.imgScale ? `transform: scale(${p.imgScale})` : undefined}
+                    />
+                  </div>
+                  {p.dates && <p class="work__dates data"><span class="work__dates-label">Dates:</span> {p.dates}</p>}
+                  <p class="work__blurb">{p.blurb}</p>
+                  <ul class="work__tags">
+                    {p.kind.map((k) => (
+                      <li class="data">{k}</li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="work__badges-group">
+          <div class="work__badges rise" data-delay="3">
+            <span class="label work__badges-label">Education</span>
+            <div class="work__badges-row">
+              <img class="work__badge" src="/cornell.png" alt="Cornell University" style="padding: 0.55rem; object-fit: cover;" data-badge="cornell" />
+              <img class="work__badge" src="/holmdel.png" alt="Holmdel High School" data-badge="holmdel" />
+            </div>
+          </div>
+          <div class="work__badges rise" data-delay="4">
+            <span class="label work__badges-label">Languages</span>
+            <div class="work__badges-row work__badges-row--languages">
+              <img class="work__badge work__badge--flag" src="/en.png" alt="English" data-badge="en" />
+              <img class="work__badge work__badge--flag" src="/pt.png" alt="Portuguese" data-badge="pt" />
+              <img class="work__badge work__badge--flag" src="/de.png" alt="German" data-badge="de" />
+              <img class="work__badge work__badge--flag" src="/latin.jpg" alt="Latin" data-badge="latin" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="work__preview" aria-hidden="true">
+        <div class="work__preview-inner">
+          {
+            projects.map((p, i) => (
+              <figure
+                class="work__card"
+                id={`preview-${p.id}`}
+                data-card={p.id}
+                data-active={i === 0 ? 'true' : 'false'}
+              >
+                <div class="work__thumb">
+                  <img
+                    class:list={[
+                      'work__thumb-img',
+                      p.imgScale && 'work__thumb-img--scaled',
+                    ]}
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    style={p.imgScale ? `transform: scale(${p.imgScale})` : undefined}
+                  />
+                  <span class="work__thumb-metric data">{p.metric}</span>
+                </div>
+                <figcaption class="work__cap">
+                  {p.dates && <p class="work__dates data"><span class="work__dates-label">Dates:</span> {p.dates}</p>}
+                  <p class="work__blurb">{p.blurb}</p>
+                  <ul class="work__tags">
+                    {p.kind.map((k) => (
+                      <li class="data">{k}</li>
+                    ))}
+                  </ul>
+                </figcaption>
+              </figure>
+            ))
+          }
+          <figure
+            class="work__card"
+            id="preview-de"
+            data-card="de"
+            data-active="false"
+          >
+            <div class="work__thumb work__thumb--language">
+              <img
+                class="work__thumb-img work__thumb-img--language"
+                src="/de.png"
+                alt="German flag"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="work__cap">
+              <p class="work__blurb">One year ago I started learning German out of interest in the country (and its soccer league)!</p>
+            </figcaption>
+          </figure>
+          <figure
+            class="work__card"
+            id="preview-pt"
+            data-card="pt"
+            data-active="false"
+          >
+            <div class="work__thumb work__thumb--language">
+              <img
+                class="work__thumb-img work__thumb-img--language"
+                src="/pt.png"
+                alt="Portuguese flag"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="work__cap">
+              <p class="work__blurb">Both of my Parents are Portuguese (from Portugal!), so I've spoken it from the around same time I learned English.</p>
+            </figcaption>
+          </figure>
+          <figure
+            class="work__card"
+            id="preview-en"
+            data-card="en"
+            data-active="false"
+          >
+            <div class="work__thumb work__thumb--language">
+              <img
+                class="work__thumb-img work__thumb-img--language"
+                src="/en.png"
+                alt="United States flag"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="work__cap">
+              <p class="work__blurb">I was born &amp; raised in the United States and speak English as a first language!</p>
+            </figcaption>
+          </figure>
+          <figure
+            class="work__card"
+            id="preview-latin"
+            data-card="latin"
+            data-active="false"
+          >
+            <div class="work__thumb work__thumb--language">
+              <img
+                class="work__thumb-img work__thumb-img--language work__thumb-img--latin"
+                src="/latin.jpg"
+                alt="Latin"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="work__cap">
+              <p class="work__blurb">I began studying Latin in middle school and continued that pursuit through college - including as President of Latin Honor Society!</p>
+            </figcaption>
+          </figure>
+          <figure
+            class="work__card"
+            id="preview-holmdel"
+            data-card="holmdel"
+            data-active="false"
+          >
+            <div class="work__thumb">
+              <img
+                class="work__thumb-img work__thumb-img--holmdel"
+                src="/holmdelbanner.png"
+                alt="Holmdel Township"
+                loading="lazy"
+                style="transform: scale(1.8)"
+              />
+            </div>
+            <figcaption class="work__cap">
+              <p class="work__dates data"><span class="work__dates-label">Dates:</span> 09/2013–06/2017</p>
+              <p class="work__blurb">I grew up in Holmdel, New Jersey and attended the public school system from a young age all the way up through high school. That peaceful town and the great people that filled it provided a great foundation for my interests in subjects like computers, markets, and language.</p>
+              <ul class="work__tags">
+                <li class="data">Eco Club</li>
+                <li class="data">Latin Honor Society</li>
+                <li class="data">Federal Reserve Challenge</li>
+                <li class="data">NHS</li>
+              </ul>
+            </figcaption>
+          </figure>
+          <figure
+            class="work__card"
+            id="preview-cornell"
+            data-card="cornell"
+            data-active="false"
+          >
+            <div class="work__thumb">
+              <img
+                class="work__thumb-img"
+                src="/cornellbanner.png"
+                alt="Cornell University"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="work__cap">
+              <p class="work__dates data"><span class="work__dates-label">Dates:</span> 8/2017–12/2020</p>
+              <p class="work__blurb">I entered Cornell University in the Fall of 2017 as an engineering student pursuing Computer Science. After my first semester, I knew I wanted to switch gears and pursue Economics so I started taking the required courses and writing a million emails. Three years later in December of 2020, I graduated with a B.A. in Economics and a minor in Information Science.</p>
+              <ul class="work__tags">
+                <li class="data">Economics</li>
+                <li class="data">Information Science</li>
+              </ul>
+            </figcaption>
+          </figure>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* match the anchor landing gap used by the other main sections */
+  .work {
+    min-height: calc(100svh - 4rem - clamp(5.5rem, 5.6vw, 6.6rem));
+    padding-top: clamp(1.25rem, 2vw, 2rem);
+  }
+
+  .work__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .work__list {
+    list-style: none;
+  }
+
+  .work__row {
+    border-top: 1px solid var(--color-hair);
+  }
+  .work__row:first-child {
+    border-top: none;
+  }
+  .work__row:last-child {
+    border-bottom: none;
+  }
+
+  .work__trigger {
+    width: 100%;
+    background: none;
+    border: 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    padding-block: clamp(1.1rem, 2vw, 1.6rem);
+    text-align: left;
+    color: var(--color-ink);
+    transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .work__id {
+    font-size: 0.72rem;
+    color: var(--color-mute);
+  }
+  .work__title {
+    font-size: clamp(1.35rem, 3vw, 2.3rem);
+    font-weight: 700;
+    font-stretch: 118%;
+    font-variation-settings: 'wght' 700, 'wdth' 118;
+    line-height: 1;
+    transition: color 0.4s ease;
+  }
+  .work__client {
+    font-size: 0.8rem;
+    color: var(--color-mute);
+    justify-self: end;
+    align-self: center;
+    white-space: nowrap;
+    transform: translateX(-6px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .work__year {
+    font-size: 0.78rem;
+    color: var(--color-mute);
+    align-self: center;
+  }
+  @media (hover: hover) {
+    .work__trigger:hover {
+      padding-left: clamp(0.75rem, 2vw, 1.5rem);
+    }
+    .work__trigger:hover .work__title {
+      color: var(--color-signal);
+    }
+    .work__trigger:hover .work__client {
+      transform: none;
+    }
+  }
+
+  .work__badges-group {
+    display: flex;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .work__badges {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+  }
+  .work__badges-row {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .work__badges-row--languages {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    align-items: center;
+    gap: clamp(0.5rem, 1.25vw, 1rem);
+    min-height: clamp(4.25rem, 6.25vw, 5rem);
+  }
+  .work__badges-row--languages .work__badge {
+    width: clamp(4.125rem, 5.25vw, 4.875rem);
+    height: clamp(2.625rem, 3.5vw, 3rem);
+    border-radius: 4px;
+  }
+  .work__badge {
+    height: clamp(4.25rem, 6.25vw, 5rem);
+    width: clamp(4.25rem, 6.25vw, 5rem);
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    border: 1px solid var(--color-hair);
+    padding: 0.6rem;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .work__badge--flag {
+    object-fit: cover;
+    overflow: hidden;
+    padding: 0;
+  }
+  .work__flag--de {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'%3E%3Crect fill='%23000' width='5' height='1'/%3E%3Crect fill='%23D00' y='1' width='5' height='1'/%3E%3Crect fill='%23FFCE00' y='2' width='5' height='1'/%3E%3C/svg%3E");
+  }
+  @media (hover: hover) {
+    .work__badge:hover {
+      transform: scale(1.05);
+      border-color: var(--color-hair-strong);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  /* ---- sticky preview (desktop) ---- */
+  .work__preview {
+    position: sticky;
+    top: 6rem;
+  }
+  .work__preview-inner {
+    position: relative;
+    /* cards stack in one cell; the box grows to fit the tallest description */
+    display: grid;
+  }
+  .work__card {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    opacity: 0;
+    transform: scale(0.985);
+    pointer-events: none;
+    transition:
+      opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .work__card[data-active='true'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .work__thumb {
+    position: relative;
+    flex: none;
+    height: clamp(6rem, 10vw, 7.5rem);
+    /* no box — logos sit on the page, centered and size-capped */
+    background: transparent;
+    overflow: visible;
+    display: grid;
+    place-items: center;
+  }
+  .work__thumb-img {
+    width: auto;
+    height: auto;
+    /* capped by height so every logo reads at a similar presence */
+    max-height: clamp(3.5rem, 7vw, 5.5rem);
+    max-width: 90%;
+    object-fit: contain;
+  }
+  .work__thumb--language {
+    height: clamp(6.5rem, 11vw, 8rem);
+  }
+  .work__thumb-img--language {
+    width: clamp(11rem, 19vw, 14rem);
+    height: auto;
+    aspect-ratio: 3840 / 2022;
+    max-width: 90%;
+    max-height: none;
+    object-fit: cover;
+    object-position: center;
+  }
+  .work__thumb-img--latin {
+    object-position: 50% 50%;
+  }
+  .work__thumb-img--holmdel {
+    -webkit-clip-path: ellipse(41.5% 38.2% at 50% 50%);
+    clip-path: ellipse(41.5% 38.2% at 50% 50%);
+  }
+  /* the placeholder metric badge no longer fits the logo treatment */
+  .work__thumb-metric {
+    display: none;
+  }
+  .work__cap {
+    flex-shrink: 0;
+  }
+  .work__dates {
+    font-size: clamp(0.8rem, 0.9vw, 0.9rem);
+    color: var(--color-ink-2);
+    margin-bottom: 0.5rem;
+  }
+  .work__dates-label {
+    opacity: 0.6;
+  }
+  .work__blurb {
+    font-size: clamp(0.95rem, 1vw, 1.05rem);
+    color: var(--color-ink-2);
+    max-width: 46ch;
+  }
+  .work__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+    list-style: none;
+  }
+  .work__tags li {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+    border: 1px solid var(--color-hair-strong);
+    border-radius: 999px;
+    padding: 0.25rem 0.7rem;
+  }
+
+  /* mobile inline detail hidden on desktop */
+  .work__mobile {
+    display: none;
+  }
+
+  /* The preview artwork is the only expendable vertical space on compact
+     desktop viewports; tightening it keeps the Projects eyebrow peeking at
+     the same depth without reducing the experience copy or badges. */
+  @media (min-width: 901px) and (max-height: 899px) {
+    .work {
+      padding-bottom: 0;
+    }
+    .work__card {
+      gap: 0.9rem;
+    }
+    .work__thumb {
+      height: 6.5rem;
+    }
+    .work__thumb-img {
+      max-height: 5.5rem;
+    }
+    .work__thumb-img--scaled {
+      max-height: 3.65rem;
+    }
+    .work__thumb--language {
+      height: 8rem;
+    }
+    .work__thumb-img--language {
+      max-height: none;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .work__layout {
+      grid-template-columns: 1fr;
+    }
+    .work__preview {
+      display: none;
+    }
+    .work__trigger {
+      grid-template-columns: auto 1fr auto;
+      row-gap: 0.35rem;
+    }
+    .work__client {
+      grid-column: 2 / 4;
+    }
+    .work__mobile {
+      display: block;
+      padding: 0 0 1.6rem;
+    }
+    .work__mobile .work__thumb {
+      aspect-ratio: auto;
+      height: 5rem;
+      justify-items: start;
+      margin-bottom: 1rem;
+    }
+    .work__mobile .work__blurb {
+      max-width: none;
+    }
+  }
+
+  /* ---- generative thumbnail motifs (pure CSS) ---- */
+  .work__thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.9;
+  }
+  .work__thumb--stream::before {
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 14px,
+        rgba(255, 0, 0, 0.5) 14px 15px
+      ),
+      linear-gradient(180deg, #14183a, #0e0f12);
+    mask-image: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+  }
+  .work__thumb--wave::before {
+    background:
+      radial-gradient(120% 60% at 50% 120%, rgba(255, 0, 0, 0.55), transparent 60%),
+      repeating-radial-gradient(
+        circle at 50% 130%,
+        transparent 0 22px,
+        rgba(244, 245, 243, 0.12) 22px 23px
+      ),
+      #0e0f12;
+  }
+  .work__thumb--scatter::before {
+    background-color: #0e0f12;
+    background-image:
+      radial-gradient(rgba(244, 245, 243, 0.75) 1.4px, transparent 1.6px),
+      radial-gradient(rgba(255, 0, 0, 0.9) 2px, transparent 2.2px);
+    background-size: 34px 34px, 90px 74px;
+    background-position: 0 0, 20px 30px;
+  }
+  .work__thumb--grid::before {
+    background-color: #0e0f12;
+    background-image:
+      linear-gradient(rgba(244, 245, 243, 0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 245, 243, 0.14) 1px, transparent 1px),
+      linear-gradient(120deg, rgba(255, 0, 0, 0.6), transparent 55%);
+    background-size: 2rem 2rem, 2rem 2rem, 100% 100%;
+  }
+  .work__thumb--bloom::before {
+    background:
+      conic-gradient(
+        from 0deg at 50% 55%,
+        #0e0f12,
+        #cc0000,
+        #0e0f12,
+        #ff0000,
+        #0e0f12
+      );
+    mask-image: repeating-radial-gradient(
+      circle at 50% 55%,
+      black 0 3px,
+      transparent 3px 12px
+    );
+    opacity: 0.75;
+  }
+</style>
+
+<script>
+  // Sync the sticky preview to the hovered / focused ledger row.
+  const triggers =
+    document.querySelectorAll<HTMLElement>('.work__trigger');
+  const cards = document.querySelectorAll<HTMLElement>('[data-card]');
+
+  function activate(id: string) {
+    cards.forEach((c) =>
+      c.setAttribute('data-active', c.dataset.card === id ? 'true' : 'false')
+    );
+  }
+
+  triggers.forEach((t) => {
+    const id = t.dataset.project!;
+    t.addEventListener('mouseenter', () => activate(id));
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-badge]').forEach((b) => {
+    const id = b.dataset.badge!;
+    b.addEventListener('mouseenter', () => activate(id));
+  });
+</script>
