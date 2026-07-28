@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 
+const assetPath = (path: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
 export interface Props {
   title?: string;
   description?: string;
@@ -18,7 +21,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" href="/avi.ico" type="image/x-icon" />
+    <link rel="icon" href={assetPath('/avi.ico')} type="image/x-icon" />
 
     <title>{title}</title>
     <meta name="description" content={description} />

@@ -1,4 +1,7 @@
 ---
+const assetPath = (path: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
 const projects = [
   {
     id: '001',
@@ -67,7 +70,7 @@ const projects = [
                         'work__thumb-img',
                         p.imgScale && 'work__thumb-img--scaled',
                       ]}
-                      src={p.image}
+                      src={assetPath(p.image)}
                       alt={p.title}
                       loading="lazy"
                       style={p.imgScale ? `transform: scale(${p.imgScale})` : undefined}
@@ -90,17 +93,17 @@ const projects = [
           <div class="work__badges rise" data-delay="3">
             <span class="label work__badges-label">Education</span>
             <div class="work__badges-row">
-              <img class="work__badge" src="/cornell.png" alt="Cornell University" style="padding: 0.55rem; object-fit: cover;" data-badge="cornell" />
-              <img class="work__badge" src="/holmdel.png" alt="Holmdel High School" data-badge="holmdel" />
+              <img class="work__badge" src={assetPath('/cornell.png')} alt="Cornell University" style="padding: 0.55rem; object-fit: cover;" data-badge="cornell" />
+              <img class="work__badge" src={assetPath('/holmdel.png')} alt="Holmdel High School" data-badge="holmdel" />
             </div>
           </div>
           <div class="work__badges rise" data-delay="4">
             <span class="label work__badges-label">Languages</span>
             <div class="work__badges-row work__badges-row--languages">
-              <img class="work__badge work__badge--flag" src="/en.png" alt="English" data-badge="en" />
-              <img class="work__badge work__badge--flag" src="/pt.png" alt="Portuguese" data-badge="pt" />
-              <img class="work__badge work__badge--flag" src="/de.png" alt="German" data-badge="de" />
-              <img class="work__badge work__badge--flag" src="/latin.jpg" alt="Latin" data-badge="latin" />
+              <img class="work__badge work__badge--flag" src={assetPath('/en.png')} alt="English" data-badge="en" />
+              <img class="work__badge work__badge--flag" src={assetPath('/pt.png')} alt="Portuguese" data-badge="pt" />
+              <img class="work__badge work__badge--flag" src={assetPath('/de.png')} alt="German" data-badge="de" />
+              <img class="work__badge work__badge--flag" src={assetPath('/latin.jpg')} alt="Latin" data-badge="latin" />
             </div>
           </div>
         </div>
@@ -122,7 +125,7 @@ const projects = [
                       'work__thumb-img',
                       p.imgScale && 'work__thumb-img--scaled',
                     ]}
-                    src={p.image}
+                    src={assetPath(p.image)}
                     alt={p.title}
                     loading="lazy"
                     style={p.imgScale ? `transform: scale(${p.imgScale})` : undefined}
@@ -150,7 +153,7 @@ const projects = [
             <div class="work__thumb work__thumb--language">
               <img
                 class="work__thumb-img work__thumb-img--language"
-                src="/de.png"
+                src={assetPath('/de.png')}
                 alt="German flag"
                 loading="lazy"
               />
@@ -168,7 +171,7 @@ const projects = [
             <div class="work__thumb work__thumb--language">
               <img
                 class="work__thumb-img work__thumb-img--language"
-                src="/pt.png"
+                src={assetPath('/pt.png')}
                 alt="Portuguese flag"
                 loading="lazy"
               />
@@ -186,7 +189,7 @@ const projects = [
             <div class="work__thumb work__thumb--language">
               <img
                 class="work__thumb-img work__thumb-img--language"
-                src="/en.png"
+                src={assetPath('/en.png')}
                 alt="United States flag"
                 loading="lazy"
               />
@@ -204,7 +207,7 @@ const projects = [
             <div class="work__thumb work__thumb--language">
               <img
                 class="work__thumb-img work__thumb-img--language work__thumb-img--latin"
-                src="/latin.jpg"
+                src={assetPath('/latin.jpg')}
                 alt="Latin"
                 loading="lazy"
               />
@@ -222,7 +225,7 @@ const projects = [
             <div class="work__thumb">
               <img
                 class="work__thumb-img work__thumb-img--holmdel"
-                src="/holmdelbanner.png"
+                src={assetPath('/holmdelbanner.png')}
                 alt="Holmdel Township"
                 loading="lazy"
                 style="transform: scale(1.8)"
@@ -248,7 +251,7 @@ const projects = [
             <div class="work__thumb">
               <img
                 class="work__thumb-img"
-                src="/cornellbanner.png"
+                src={assetPath('/cornellbanner.png')}
                 alt="Cornell University"
                 loading="lazy"
               />

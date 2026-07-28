@@ -1,4 +1,7 @@
 ---
+const assetPath = (path: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
 const projects = [
   {
     title: 'Agentic AI Group',
@@ -59,7 +62,7 @@ const projects = [
                   p.title === 'Executive Insights Reporting' &&
                     'projects__logo--marriott',
                 ]}
-                src={p.logo}
+                src={assetPath(p.logo)}
                 alt={p.logoAlt}
               />
             )}

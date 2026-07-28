@@ -1,4 +1,7 @@
 ---
+const assetPath = (path: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
 const facts = [
   { k: 'Based', v: 'New York, NY' },
   { k: 'Hometown', v: 'Holmdel, NJ' },
@@ -60,7 +63,7 @@ const favoriteAlbums = [
                           'profile__poster',
                           index === 0 && 'profile__poster--punch-drunk-love',
                         ]}
-                        src={movie.src}
+                        src={assetPath(movie.src)}
                         alt={movie.alt}
                         loading="lazy"
                         decoding="async"
@@ -84,7 +87,7 @@ const favoriteAlbums = [
                           'profile__album',
                           index === 0 && 'profile__album--frank-ocean',
                         ]}
-                        src={album.src}
+                        src={assetPath(album.src)}
                         alt={album.alt}
                         loading="lazy"
                         decoding="async"
@@ -113,9 +116,9 @@ const favoriteAlbums = [
 
       <aside class="profile__aside" aria-label="At a glance">
         <div class="profile__portrait rise" data-delay="1">
-          <img class="profile__portrait-img profile__slide" src="/brian1.JPG" alt="Brian DeSousa" loading="lazy" decoding="async" data-slide="0" />
-          <img class="profile__portrait-img profile__slide" src="/brian2.JPG" alt="Brian DeSousa" loading="lazy" decoding="async" data-slide="1" />
-          <img class="profile__portrait-img profile__slide" src="/brian4.JPG" alt="Brian DeSousa" loading="lazy" decoding="async" data-slide="2" />
+          <img class="profile__portrait-img profile__slide" src={assetPath('/brian1.JPG')} alt="Brian DeSousa" loading="lazy" decoding="async" data-slide="0" />
+          <img class="profile__portrait-img profile__slide" src={assetPath('/brian2.JPG')} alt="Brian DeSousa" loading="lazy" decoding="async" data-slide="1" />
+          <img class="profile__portrait-img profile__slide" src={assetPath('/brian4.JPG')} alt="Brian DeSousa" loading="lazy" decoding="async" data-slide="2" />
         </div>
       </aside>
     </div>

@@ -1,4 +1,7 @@
 ---
+const assetPath = (path: string) =>
+  `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
 const covers = [
   { src: '/music/16_Quitting Paris - Notbrian.webp', label: 'Quitting Paris - Notbrian', href: 'https://open.spotify.com/album/1FM8ZWahG3EylxCgbPuBbG?si=uV0gskcKQcSIDoWYuJ1etA' },
   { src: '/music/15_Me Gustas Tu - NEVERHOME.webp', label: 'Me Gustas Tu - NEVERHOME', href: 'https://open.spotify.com/track/7HFVWpJbftMNx5UyxEONvD?si=96136d087070437c' },
@@ -37,7 +40,7 @@ const covers = [
             >
               <img
                 class="music__cover"
-                src={cover.src}
+                src={assetPath(cover.src)}
                 alt={`${cover.label} cover artwork`}
                 loading="lazy"
                 decoding="async"
