@@ -25,9 +25,7 @@ npm run preview    # preview the production build
 ## Deploy
 
 The site deploys automatically to GitHub Pages when changes are pushed to
-`main`. The production URL is `https://desousabrian.github.io/briandesousa/`.
-Astro's `base` setting ensures generated styles and public assets resolve from
-the repository subpath.
+`main`. The production URL is `https://www.briandesousa.me`.
 
 In the repository's **Settings → Pages**, set **Source** to **GitHub Actions**.
 The workflow in `.github/workflows/deploy.yml` installs dependencies, builds the
