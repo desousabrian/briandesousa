@@ -157,11 +157,25 @@ const covers = [
     .music__gallery {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    .music__item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      width: 50%;
+      justify-self: center;
+    }
+    .music__caption {
+      inset: auto 0 0;
+      display: block;
+      padding: 2.5rem 0.65rem 0.65rem;
+      background: linear-gradient(to bottom, transparent, rgb(14 15 18 / 0.82));
+      font-size: clamp(0.65rem, 2.8vw, 0.78rem);
+      opacity: 1;
+      transform: none;
+    }
   }
 
   @media (max-width: 480px) {
     .music__gallery {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

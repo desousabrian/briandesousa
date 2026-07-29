@@ -64,6 +64,7 @@ const socials = [
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    min-width: 0;
   }
   .contact__social-lbl {
     color: var(--color-mute);
@@ -72,6 +73,8 @@ const socials = [
     color: var(--color-ink);
     font-size: clamp(0.85rem, 1vw, 1rem);
     width: fit-content;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
 
   .contact__copy {
@@ -84,6 +87,12 @@ const socials = [
     .contact__socials {
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .contact__socials {
+      grid-template-columns: 1fr;
     }
   }
 </style>

@@ -93,23 +93,35 @@ const projects = [
           <div class="work__badges rise" data-delay="3">
             <span class="label work__badges-label">Education</span>
             <div class="work__badges-row">
-              <img class="work__badge" src={assetPath('/cornell.png')} alt="Cornell University" style="padding: 0.55rem; object-fit: cover;" data-badge="cornell" />
-              <img class="work__badge" src={assetPath('/holmdel.png')} alt="Holmdel High School" data-badge="holmdel" />
+              <button class="work__badge-button" type="button" data-badge="cornell" aria-label="Show Cornell University details" aria-controls="preview-cornell" aria-expanded="false">
+                <img class="work__badge" src={assetPath('/cornell.png')} alt="" style="padding: 0.55rem; object-fit: cover;" />
+              </button>
+              <button class="work__badge-button" type="button" data-badge="holmdel" aria-label="Show Holmdel High School details" aria-controls="preview-holmdel" aria-expanded="false">
+                <img class="work__badge" src={assetPath('/holmdel.png')} alt="" />
+              </button>
             </div>
           </div>
           <div class="work__badges rise" data-delay="4">
             <span class="label work__badges-label">Languages</span>
             <div class="work__badges-row work__badges-row--languages">
-              <img class="work__badge work__badge--flag" src={assetPath('/en.png')} alt="English" data-badge="en" />
-              <img class="work__badge work__badge--flag" src={assetPath('/pt.png')} alt="Portuguese" data-badge="pt" />
-              <img class="work__badge work__badge--flag" src={assetPath('/de.png')} alt="German" data-badge="de" />
-              <img class="work__badge work__badge--flag" src={assetPath('/latin.jpg')} alt="Latin" data-badge="latin" />
+              <button class="work__badge-button" type="button" data-badge="en" aria-label="Show English details" aria-controls="preview-en" aria-expanded="false">
+                <img class="work__badge work__badge--flag" src={assetPath('/en.png')} alt="" />
+              </button>
+              <button class="work__badge-button" type="button" data-badge="pt" aria-label="Show Portuguese details" aria-controls="preview-pt" aria-expanded="false">
+                <img class="work__badge work__badge--flag" src={assetPath('/pt.png')} alt="" />
+              </button>
+              <button class="work__badge-button" type="button" data-badge="de" aria-label="Show German details" aria-controls="preview-de" aria-expanded="false">
+                <img class="work__badge work__badge--flag" src={assetPath('/de.png')} alt="" />
+              </button>
+              <button class="work__badge-button" type="button" data-badge="latin" aria-label="Show Latin details" aria-controls="preview-latin" aria-expanded="false">
+                <img class="work__badge work__badge--flag" src={assetPath('/latin.jpg')} alt="" />
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <aside class="work__preview" aria-hidden="true">
+      <aside class="work__preview">
         <div class="work__preview-inner">
           {
             projects.map((p, i) => (
@@ -378,6 +390,20 @@ const projects = [
     height: clamp(2.625rem, 3.5vw, 3rem);
     border-radius: 4px;
   }
+  .work__badge-button {
+    appearance: none;
+    display: block;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .work__badge-button:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
   .work__badge {
     height: clamp(4.25rem, 6.25vw, 5rem);
     width: clamp(4.25rem, 6.25vw, 5rem);
@@ -397,7 +423,7 @@ const projects = [
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'%3E%3Crect fill='%23000' width='5' height='1'/%3E%3Crect fill='%23D00' y='1' width='5' height='1'/%3E%3Crect fill='%23FFCE00' y='2' width='5' height='1'/%3E%3C/svg%3E");
   }
   @media (hover: hover) {
-    .work__badge:hover {
+    .work__badge-button:hover .work__badge {
       transform: scale(1.05);
       border-color: var(--color-hair-strong);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -546,15 +572,19 @@ const projects = [
     .work__layout {
       grid-template-columns: 1fr;
     }
-    .work__preview {
-      display: none;
-    }
     .work__trigger {
-      grid-template-columns: auto 1fr auto;
-      row-gap: 0.35rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      padding-bottom: 1rem;
     }
     .work__client {
-      grid-column: 2 / 4;
+      justify-self: start;
+      align-self: flex-start;
+      white-space: normal;
+      transform: none;
+      line-height: 1.35;
     }
     .work__mobile {
       display: block;
@@ -568,6 +598,43 @@ const projects = [
     }
     .work__mobile .work__blurb {
       max-width: none;
+    }
+    .work__badges-group {
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .work__badges-row {
+      gap: 1rem;
+    }
+    .work__badges-row--languages {
+      grid-template-columns: repeat(4, minmax(0, auto));
+      justify-content: start;
+    }
+    .work__preview {
+      position: static;
+      display: block;
+      margin-top: 1.5rem;
+    }
+    .work__preview-inner {
+      display: block;
+    }
+    .work__preview .work__card {
+      display: none;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      padding-top: 0.25rem;
+      border-top: 1px solid var(--color-hair);
+    }
+    .work__preview .work__card[data-active='true']:is(
+      [data-card='cornell'],
+      [data-card='holmdel'],
+      [data-card='en'],
+      [data-card='pt'],
+      [data-card='de'],
+      [data-card='latin']
+    ) {
+      display: flex;
     }
   }
 
@@ -638,11 +705,17 @@ const projects = [
   const triggers =
     document.querySelectorAll<HTMLElement>('.work__trigger');
   const cards = document.querySelectorAll<HTMLElement>('[data-card]');
+  const badgeButtons = document.querySelectorAll<HTMLButtonElement>('[data-badge]');
 
   function activate(id: string) {
-    cards.forEach((c) =>
-      c.setAttribute('data-active', c.dataset.card === id ? 'true' : 'false')
-    );
+    cards.forEach((c) => {
+      const isActive = c.dataset.card === id;
+      c.setAttribute('data-active', isActive ? 'true' : 'false');
+      c.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    });
+    badgeButtons.forEach((button) => {
+      button.setAttribute('aria-expanded', button.dataset.badge === id ? 'true' : 'false');
+    });
   }
 
   triggers.forEach((t) => {
@@ -650,8 +723,14 @@ const projects = [
     t.addEventListener('mouseenter', () => activate(id));
   });
 
-  document.querySelectorAll<HTMLElement>('[data-badge]').forEach((b) => {
+  badgeButtons.forEach((b) => {
     const id = b.dataset.badge!;
     b.addEventListener('mouseenter', () => activate(id));
+    b.addEventListener('focus', () => activate(id));
+    b.addEventListener('click', () => activate(id));
+  });
+
+  cards.forEach((card) => {
+    card.setAttribute('aria-hidden', card.dataset.active === 'true' ? 'false' : 'true');
   });
 </script>
