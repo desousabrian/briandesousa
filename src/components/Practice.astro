@@ -196,6 +196,26 @@ const projects = [
     .projects__grid {
       grid-template-columns: 1fr;
     }
+    /* Touchscreens otherwise retain a tapped :hover state. On mobile the
+       centered card is selected by scroll position instead. */
+    .projects__card:hover {
+      border-color: var(--color-hair);
+      box-shadow: none;
+      translate: 0 0;
+      scale: 1;
+    }
+    .projects__card:hover .projects__title {
+      color: var(--color-ink);
+    }
+    .projects__card[data-mobile-active='true'] {
+      border-color: var(--color-ink);
+      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.07);
+      translate: 0 -3px;
+      scale: 1.008;
+    }
+    .projects__card[data-mobile-active='true'] .projects__title {
+      color: var(--color-signal);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -206,3 +226,59 @@ const projects = [
     }
   }
 </style>
+
+<script>
+  const mobileProjectsQuery = window.matchMedia('(max-width: 820px)');
+  const projectCards = Array.from(
+    document.querySelectorAll<HTMLElement>('.projects__card')
+  );
+  const projectsSection = document.querySelector<HTMLElement>('#projects');
+  let projectsTicking = false;
+
+  function updateCenteredProject() {
+    projectsTicking = false;
+
+    if (!mobileProjectsQuery.matches || !projectsSection) {
+      projectCards.forEach((card) => card.removeAttribute('data-mobile-active'));
+      return;
+    }
+
+    const sectionRect = projectsSection.getBoundingClientRect();
+    const sectionIsVisible = sectionRect.bottom > 0 && sectionRect.top < window.innerHeight;
+    const viewportCenter = window.innerHeight / 2;
+    let closestCard: HTMLElement | null = null;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    if (sectionIsVisible) {
+      projectCards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+
+        const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestCard = card;
+        }
+      });
+    }
+
+    projectCards.forEach((card) => {
+      if (card === closestCard) {
+        card.setAttribute('data-mobile-active', 'true');
+      } else {
+        card.removeAttribute('data-mobile-active');
+      }
+    });
+  }
+
+  function requestCenteredProjectUpdate() {
+    if (projectsTicking) return;
+    projectsTicking = true;
+    requestAnimationFrame(updateCenteredProject);
+  }
+
+  window.addEventListener('scroll', requestCenteredProjectUpdate, { passive: true });
+  window.addEventListener('resize', requestCenteredProjectUpdate);
+  mobileProjectsQuery.addEventListener('change', requestCenteredProjectUpdate);
+  requestCenteredProjectUpdate();
+</script>
