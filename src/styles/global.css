@@ -4,6 +4,7 @@
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
 @import '@fontsource/ibm-plex-mono/600.css';
+@import '@fontsource/ibm-plex-mono/700.css';
 
 @import 'tailwindcss';
 
@@ -30,8 +31,8 @@
 
   /* Type roles */
   --font-display: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
-  --font-body: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-body: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-copy: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif;
 }
 
 /* ---------- reset-ish base ---------- */
@@ -112,9 +113,9 @@ canvas {
   border-top: var(--rule) solid var(--color-hair);
 }
 
-/* Monospace utility label — the connective tissue of the whole page */
+/* Utility label — the connective tissue of the whole page */
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(0.62rem, 0.72vw, 0.72rem);
   letter-spacing: 0.16em;
@@ -127,7 +128,7 @@ canvas {
 }
 
 .data {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
 }
@@ -151,7 +152,7 @@ canvas {
   scroll-margin-top: clamp(5.5rem, 5.6vw, 6.6rem);
 }
 
-/* Eyebrow row: mono index + label + hairline that runs to the edge */
+/* Eyebrow row: index + label + hairline that runs to the edge */
 .eyebrow {
   display: flex;
   align-items: baseline;

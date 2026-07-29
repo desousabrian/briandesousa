@@ -11,9 +11,23 @@ const facts = [
   },
   {
     k: 'Tools',
-    v: 'SQL · Python · JavaScript · HTML · CSS · DOMO · Power BI · Adobe Analytics · Microsoft Azure · Power Automate · Claude · Copilot',
+    v: '',
   },
   { k: 'Age', v: '27' },
+];
+
+const tools = [
+  'SQL',
+  'Python',
+  'JavaScript',
+  'DOMO',
+  'Power BI',
+  'Adobe Analytics',
+  'Snowflake',
+  'Microsoft Azure',
+  'Power Automate',
+  'Claude',
+  'Copilot',
 ];
 
 const topMovies = [
@@ -43,9 +57,29 @@ const favoriteAlbums = [
         <dl class="profile__facts profile__facts--lead rise" data-delay="1">
           {
             facts.map((f) => (
-              <div class="profile__fact">
+              <div
+                class:list={[
+                  'profile__fact',
+                  f.k === 'Tools' && 'profile__fact--tools',
+                ]}
+              >
                 <dt class="label">{f.k}</dt>
-                <dd class="data" set:html={f.v} />
+                {
+                  f.k === 'Tools' ? (
+                    <dd class="data" data-tools-list>
+                      {tools.map((tool) => (
+                        <span class="profile__tools-item">
+                          {tool !== 'SQL' && tool !== 'Snowflake' && (
+                            <span class="profile__tools-separator" aria-hidden="true">·</span>
+                          )}
+                          {tool}
+                        </span>
+                      ))}
+                    </dd>
+                  ) : (
+                    <dd class="data" set:html={f.v} />
+                  )
+                }
               </div>
             ))
           }
@@ -171,6 +205,7 @@ const favoriteAlbums = [
   }
 
   .profile__body {
+    font-family: var(--font-copy);
     max-width: 38rem;
     font-size: clamp(0.97rem, 1.04vw, 1.08rem);
     color: var(--color-ink-2);
@@ -221,10 +256,22 @@ const favoriteAlbums = [
     border-bottom: none;
   }
   .profile__fact dd {
+    font-family: var(--font-body);
     font-size: 0.8rem;
     letter-spacing: 0;
     text-align: right;
     color: var(--color-ink);
+  }
+  .profile__fact--tools dd {
+    margin-left: clamp(1rem, 2vw, 1.5rem);
+  }
+  .profile__tools-item {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .profile__tools-separator {
+    display: inline-block;
+    margin-inline: 0.3em;
   }
 
   /* facts shown in the wide left column (in place of the old statement) */
@@ -321,7 +368,7 @@ const favoriteAlbums = [
     background: var(--color-paper);
     box-shadow: 0 0.2rem 0.65rem rgb(20 18 14 / 0.12);
     color: var(--color-ink);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 0.58rem;
     line-height: 1.2;
     white-space: nowrap;
@@ -441,6 +488,9 @@ const favoriteAlbums = [
     .profile__fact dd {
       font-size: 0.82rem;
     }
+    .profile__fact--tools dd {
+      margin-left: 2rem;
+    }
     .profile__movie {
       width: clamp(2.7rem, 12.5vw, 3.4rem);
     }
@@ -492,4 +542,5 @@ const favoriteAlbums = [
   } else {
     startPortraitGallery();
   }
+
 </script>

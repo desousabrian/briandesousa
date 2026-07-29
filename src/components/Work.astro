@@ -236,7 +236,6 @@ const projects = [
               <p class="work__blurb">I grew up in Holmdel, New Jersey and attended the public school system from a young age all the way up through high school. That peaceful town and the great people that filled it provided a great foundation for my interests in subjects like computers, markets, and language.</p>
               <ul class="work__tags">
                 <li class="data">Eco Club</li>
-                <li class="data">Latin Honor Society</li>
                 <li class="data">Federal Reserve Challenge</li>
                 <li class="data">NHS</li>
               </ul>
@@ -262,6 +261,7 @@ const projects = [
               <ul class="work__tags">
                 <li class="data">Economics</li>
                 <li class="data">Information Science</li>
+                <li class="data">Latin Honor Society</li>
               </ul>
             </figcaption>
           </figure>
@@ -325,6 +325,7 @@ const projects = [
     transition: color 0.4s ease;
   }
   .work__client {
+    font-family: var(--font-copy);
     font-size: 0.8rem;
     color: var(--color-mute);
     justify-self: end;
@@ -473,6 +474,10 @@ const projects = [
   }
   .work__cap {
     flex-shrink: 0;
+  }
+  .work__card .work__cap,
+  .work__mobile {
+    font-family: var(--font-copy);
   }
   .work__dates {
     font-size: clamp(0.8rem, 0.9vw, 0.9rem);
