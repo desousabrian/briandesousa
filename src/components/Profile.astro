@@ -316,7 +316,7 @@ const favoriteAlbums = [
   }
   .profile__album-frame {
     display: block;
-    width: clamp(4rem, 5.85vw, 5.375rem);
+    width: clamp(3.45rem, 5vw, 4.6rem);
     aspect-ratio: 1;
     overflow: hidden;
     border: 1px solid var(--color-hair);
@@ -334,7 +334,7 @@ const favoriteAlbums = [
   }
   .profile__movie {
     position: relative;
-    width: clamp(2.67rem, 3.9vw, 3.58rem);
+    width: clamp(2.3rem, 3.35vw, 3.05rem);
     margin: 0;
     z-index: 0;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -445,16 +445,16 @@ const favoriteAlbums = [
     }
     .profile__movie {
       width: clamp(
-        2.33rem,
-        min(calc(14.6svh - 4.24rem), 3.9vw),
-        3.58rem
+        2rem,
+        min(calc(12.5svh - 3.65rem), 3.35vw),
+        3.05rem
       );
     }
     .profile__album-frame {
       width: clamp(
-        3.5rem,
-        min(calc(21.9svh - 6.36rem), 5.85vw),
-        5.375rem
+        3rem,
+        min(calc(18.75svh - 5.45rem), 5vw),
+        4.6rem
       );
     }
   }
@@ -478,6 +478,7 @@ const favoriteAlbums = [
       position: relative;
       aspect-ratio: 4 / 5;
       max-width: 20rem;
+      margin-inline: auto;
     }
     .profile__body {
       font-size: 1rem;
@@ -492,7 +493,7 @@ const favoriteAlbums = [
       margin-left: 2rem;
     }
     .profile__movie {
-      width: clamp(2.7rem, 12.5vw, 3.4rem);
+      width: clamp(2.35rem, 10.5vw, 3rem);
     }
     .profile__favorites {
       order: 3;
@@ -502,7 +503,11 @@ const favoriteAlbums = [
       padding-top: 1.5rem;
     }
     .profile__album-frame {
-      width: clamp(4.05rem, 18.75vw, 5.1rem);
+      width: clamp(3.5rem, 16vw, 4.5rem);
+    }
+    .profile__posters,
+    .profile__albums {
+      gap: 0.3rem;
     }
   }
 
