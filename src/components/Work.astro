@@ -596,6 +596,10 @@ const projects = [
       justify-items: start;
       margin-bottom: 1rem;
     }
+    .work__mobile .work__thumb-img--scaled {
+      margin-left: 0.6rem;
+      transform-origin: left center;
+    }
     .work__mobile .work__blurb {
       max-width: none;
     }
@@ -706,6 +710,7 @@ const projects = [
     document.querySelectorAll<HTMLElement>('.work__trigger');
   const cards = document.querySelectorAll<HTMLElement>('[data-card]');
   const badgeButtons = document.querySelectorAll<HTMLButtonElement>('[data-badge]');
+  const mobileQuery = window.matchMedia('(max-width: 900px)');
 
   function activate(id: string) {
     cards.forEach((c) => {
@@ -718,6 +723,16 @@ const projects = [
     });
   }
 
+  function collapseBadgeDetails() {
+    cards.forEach((card) => {
+      card.setAttribute('data-active', 'false');
+      card.setAttribute('aria-hidden', 'true');
+    });
+    badgeButtons.forEach((button) => {
+      button.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   triggers.forEach((t) => {
     const id = t.dataset.project!;
     t.addEventListener('mouseenter', () => activate(id));
@@ -725,9 +740,20 @@ const projects = [
 
   badgeButtons.forEach((b) => {
     const id = b.dataset.badge!;
-    b.addEventListener('mouseenter', () => activate(id));
-    b.addEventListener('focus', () => activate(id));
-    b.addEventListener('click', () => activate(id));
+    b.addEventListener('mouseenter', () => {
+      if (!mobileQuery.matches) activate(id);
+    });
+    b.addEventListener('focus', () => {
+      if (!mobileQuery.matches) activate(id);
+    });
+    b.addEventListener('click', () => {
+      const isOpen = b.getAttribute('aria-expanded') === 'true';
+      if (mobileQuery.matches && isOpen) {
+        collapseBadgeDetails();
+        return;
+      }
+      activate(id);
+    });
   });
 
   cards.forEach((card) => {
