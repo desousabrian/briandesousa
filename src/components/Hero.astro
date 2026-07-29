@@ -370,6 +370,14 @@ const words = ['Data guy.', 'Musician.', 'Developer.', 'Strategist.'];
   }
 
   @media (max-width: 720px) {
+    .hero__plot {
+      transform: translateY(2.25rem);
+    }
+    .hero__head {
+      font-size: clamp(1.9rem, 8vw, 2.25rem);
+      line-height: 1.06;
+      transform: translateY(-1.5rem);
+    }
     .hero__foot {
       grid-template-columns: 1fr;
       align-items: start;
@@ -382,9 +390,13 @@ const words = ['Data guy.', 'Musician.', 'Developer.', 'Strategist.'];
       text-align: left;
       justify-self: start;
     }
-    /* the vertical scroll cue is decorative — drop it on touch layouts */
     .hero__scroll {
-      display: none;
+      display: flex;
+      bottom: 0.25rem;
+      gap: 0.3rem;
+    }
+    .hero__scroll-line {
+      height: 1.75rem;
     }
   }
 
