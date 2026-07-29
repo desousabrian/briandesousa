@@ -7,15 +7,15 @@ const projects = [
     title: 'Agentic AI Group',
     description: 'In Q1 2026, I began combining agentic AI and Power Automate to bring out a new level and depth of insights into the vast marketing performance datasets we had been working with in DOMO; these efforts ultimately culminated in an AI presentation I delivered at our annual GPX summit, where we spoke on agentic workflows to the broader organization.',
     tags: ['Copilot', 'Power Automate', 'DOMO', 'Claude'],
-    logo: '/uhc_small.png',
-    logoAlt: 'UnitedHealthcare',
+    logo: '/uhg_small.png',
+    logoAlt: 'UnitedHealth Group',
   },
   {
-    title: 'Trakdb',
-    description: 'An open-source platform for music managers, labels, and publishers — where they can administer their catalogue & rights, prepare / share tracks, organize payments, and more. I built Trakdb as a solution for some of the obstacles I faced myself as a producer & band member, and hope to get it into the hands of others in a similar position.',
+    title: 'Campaign Information System',
+    description: 'This year I built a campaign information system based on naming conventions that replaced our previous encyclopedia, greatly reducing failure points and serving as the foundation of a new & dynamic approach to performance reporting going forward; this project was a cross-org data effort that involved a significant degree of collaboration and planning among different teams.',
     tags: ['Python', 'JavaScript', 'Github', 'HTML', 'CSS'],
-    logo: '/trakdb_small.png',
-    logoAlt: 'Trakdb',
+    logo: '/uhg_small.png',
+    logoAlt: 'UnitedHealth Group',
   },
   {
     title: 'Executive Insights Reporting',
@@ -28,8 +28,8 @@ const projects = [
     title: 'Phoenix Data Migration',
     description: 'I took on the project of migrating our marketing data into DOMO in 2022, and constructing a campaign encyclopedia that would serve as the foundation for future reporting and optimizations. We onboarded dozens of partners across channels like paid search, display, affiliate, and social — all connected with back-end conversion numbers that allowed for a vivid picture of performance and constant insights.',
     tags: ['DOMO', 'Excel', 'SA360', 'Facebook Ads', 'StackAdapt'],
-    logo: '/uhg_small.png',
-    logoAlt: 'UnitedHealth Group',
+    logo: '/uhc_small.png',
+    logoAlt: 'UnitedHealthcare',
   },
 ];
 ---
@@ -58,7 +58,7 @@ const projects = [
               <img
                 class:list={[
                   'projects__logo',
-                  p.title === 'Trakdb' && 'projects__logo--trakdb',
+                  p.logo === '/trakdb_small.png' && 'projects__logo--trakdb',
                   p.title === 'Executive Insights Reporting' &&
                     'projects__logo--marriott',
                 ]}
