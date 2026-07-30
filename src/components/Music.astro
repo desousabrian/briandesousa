@@ -157,6 +157,9 @@ const covers = [
     .music__gallery {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    .music__item:nth-last-child(-n + 3)::after {
+      display: none;
+    }
     .music__item:last-child:nth-child(odd) {
       grid-column: 1 / -1;
       width: 50%;
