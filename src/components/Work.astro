@@ -399,6 +399,11 @@ const projects = [
     color: inherit;
     cursor: pointer;
   }
+  @media (min-width: 901px) {
+    .work__badge-button {
+      cursor: default;
+    }
+  }
   .work__badge-button:focus-visible {
     outline: 2px solid var(--color-ink);
     outline-offset: 4px;
@@ -741,13 +746,20 @@ const projects = [
 
   badgeButtons.forEach((b) => {
     const id = b.dataset.badge!;
+    b.addEventListener('pointerdown', (event) => {
+      if (!mobileQuery.matches) event.preventDefault();
+    });
     b.addEventListener('mouseenter', () => {
       if (!mobileQuery.matches) activate(id);
     });
     b.addEventListener('focus', () => {
       if (!mobileQuery.matches) activate(id);
     });
-    b.addEventListener('click', () => {
+    b.addEventListener('click', (event) => {
+      if (!mobileQuery.matches) {
+        event.preventDefault();
+        return;
+      }
       const isOpen = b.getAttribute('aria-expanded') === 'true';
       if (mobileQuery.matches && isOpen) {
         collapseBadgeDetails();
