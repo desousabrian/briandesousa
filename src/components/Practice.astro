@@ -79,6 +79,16 @@ const projects = [
     padding-top: clamp(1.25rem, 2vw, 2rem);
     padding-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
   }
+
+  /* The expanded Experience copy makes that section resolve a touch taller
+     than About on desktop. Pull this boundary up by the same amount so the
+     Projects eyebrow has the matching next-section peek. Its own anchor
+     landing remains unchanged because the section padding stays intact. */
+  @media (min-width: 901px) {
+    .projects {
+      margin-top: -0.5rem;
+    }
+  }
   .projects__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
